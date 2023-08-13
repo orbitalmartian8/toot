@@ -1,3 +1,4 @@
+// app.js
 document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("login-button");
     loginButton.addEventListener("click", handleLogin);
@@ -10,13 +11,9 @@ function handleLogin() {
         return;
     }
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+    // Construct the URL for instance-specific authorization
+    const authorizationUrl = `${instanceUrl}/oauth/authorize?client_id=your_client_id&redirect_uri=${encodeURIComponent(window.location.origin + "/callback")}&response_type=code&scope=read`;
 
-    const redirectUri = window.location.origin + "/callback"; // Change this to your callback URL
-
-    const oauthUrl = `${instanceUrl}/oauth/token?redirect_uri=${redirectUri}&response_type=code&client_id=${username}&client_secret=${password}&scope=read`;
-
-    // Redirect to the Mastodon OAuth token URL
-    window.location.href = oauthUrl;
+    // Redirect to the instance-specific authorization URL
+    window.location.href = authorizationUrl;
 }
