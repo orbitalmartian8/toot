@@ -10,10 +10,13 @@ function handleLogin() {
         return;
     }
 
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
     const redirectUri = window.location.origin + "/callback"; // Change this to your callback URL
 
-    const oauthUrl = `${instanceUrl}/oauth/authorize?redirect_uri=${redirectUri}&response_type=code&scope=read`;
+    const oauthUrl = `${instanceUrl}/oauth/token?redirect_uri=${redirectUri}&response_type=code&client_id=${username}&client_secret=${password}&scope=read`;
 
-    // Redirect to the Mastodon OAuth authorization URL
+    // Redirect to the Mastodon OAuth token URL
     window.location.href = oauthUrl;
 }
